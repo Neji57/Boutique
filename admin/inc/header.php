@@ -55,10 +55,16 @@
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
+              <a class="nav-link" href="<?= URL ?>admin/index.php">Accueil Back</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<?= URL ?>admin/gestion_produit.php">Gestion produits</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?= URL ?>admin/liste_produit.php">Liste produits</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= URL ?>admin/gestion_commande.php">Gestion Commande</a>
             </li>
           </ul>
         </nav>
