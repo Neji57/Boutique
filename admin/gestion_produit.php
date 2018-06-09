@@ -36,6 +36,7 @@
             {
                 $resultat = $pdo->prepare("REPLACE INTO produit (id_produit, reference, categorie, titre, description, couleur, taille, public, photo, prix, stock) VALUES (:id_produit, :reference, :categorie, :titre, :description, :couleur, :taille, :public, :photo, :prix, :stock)");
                 $resultat->bindValue(':id_produit', $_POST['id_produit'], PDO::PARAM_INT);
+                // $nom_photo = (isset($_POST['photo'])) ? $_POST['photo'] : '' ;
             }
             // On enregistre dans la BDD pour la première fois
             else
@@ -92,7 +93,7 @@
 ?>
 
 <h1><?= $action?> un produit</h1>
-<form action="" method="post" class="pb-5" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" class="mb-4">
 
     <?= $msg_erreur ?>
 
@@ -181,7 +182,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <button type="submit" class="btn btn-block btn-success"><?= $action ?></button>
         </div>
     </div>
