@@ -1,0 +1,143 @@
+
+  _____  ______          _____    __  __ ______ 
+ |  __ \|  ____|   /\   |  __ \  |  \/  |  ____|
+ | |__) | |__     /  \  | |  | | | \  / | |__   
+ |  _  /|  __|   / /\ \ | |  | | | |\/| |  __|  
+ | | \ \| |____ / ____ \| |__| | | |  | | |____ 
+ |_|  \_\______/_/    \_\_____/  |_|  |_|______|
+                                                
+                                                
+
+	INSCRUCTIONS :
+
+	- Aller dans PHPMYADMIN
+	- Créer la BDD : boutique
+	- Interclassement : utf8_general_ci
+
+	- Aller dans la BDD créée
+	- Dans l'onglet SQL, coller tout le code ci-dessous
+
+	LES TABLES SERONT VIDES -> il faudra donc créer des utilisateurs
+
+	YALLAAAHHHHHH
+
+
+   _____  ____    _ 
+  / ____|/ __ \  | |
+ | |  __| |  | | | |
+ | | |_ | |  | | | |
+ | |__| | |__| | |_|
+  \_____|\____/  (_)
+                    
+                    
+
+
+
+-- Version de PHP :  5.6.35
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Base de données :  `boutique`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commande`
+--
+
+DROP TABLE IF EXISTS `commande`;
+CREATE TABLE IF NOT EXISTS `commande` (
+  `id_commade` int(3) NOT NULL AUTO_INCREMENT,
+  `id_membre` int(3) NOT NULL,
+  `montant` float NOT NULL,
+  `date_enregistrement` datetime NOT NULL,
+  `etat` enum('preparation','en cour de livraison','livré') NOT NULL,
+  PRIMARY KEY (`id_commade`),
+  KEY `id_membre` (`id_membre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `details_commande`
+--
+
+DROP TABLE IF EXISTS `details_commande`;
+CREATE TABLE IF NOT EXISTS `details_commande` (
+  `id_details_commande` int(3) NOT NULL AUTO_INCREMENT,
+  `id_commande` int(3) NOT NULL,
+  `id_produit` int(3) NOT NULL,
+  `quantite` int(3) NOT NULL,
+  `prix` float NOT NULL,
+  PRIMARY KEY (`id_details_commande`),
+  KEY `id_commande` (`id_commande`,`id_produit`),
+  KEY `id_produit` (`id_produit`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `membre`
+--
+
+DROP TABLE IF EXISTS `membre`;
+CREATE TABLE IF NOT EXISTS `membre` (
+  `id_membre` int(3) NOT NULL AUTO_INCREMENT,
+  `pseudo` varchar(20) NOT NULL,
+  `mdp` varchar(60) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `prenom` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `civilite` enum('m','f','o') NOT NULL,
+  `ville` varchar(20) NOT NULL,
+  `code_postal` int(5) NOT NULL,
+  `adresse` varchar(50) NOT NULL,
+  `statut` int(1) NOT NULL,
+  PRIMARY KEY (`id_membre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produit`
+--
+
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE IF NOT EXISTS `produit` (
+  `id_produit` int(3) NOT NULL AUTO_INCREMENT,
+  `reference` varchar(20) NOT NULL,
+  `categorie` varchar(20) NOT NULL,
+  `titre` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `couleur` varchar(20) NOT NULL,
+  `taille` varchar(5) NOT NULL,
+  `public` enum('homme','femme','mixte') NOT NULL,
+  `photo` varchar(250) NOT NULL,
+  `prix` float NOT NULL,
+  `stock` int(3) NOT NULL,
+  PRIMARY KEY (`id_produit`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD CONSTRAINT `id_membre` FOREIGN KEY (`id_membre`) REFERENCES `membre` (`id_membre`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `details_commande`
+--
+ALTER TABLE `details_commande`
+  ADD CONSTRAINT `id_commande` FOREIGN KEY (`id_commande`) REFERENCES `commande` (`id_commade`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_produit` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`) ON DELETE NO ACTION ON UPDATE CASCADE;
+COMMIT;
