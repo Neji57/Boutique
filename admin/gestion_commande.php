@@ -28,6 +28,8 @@ foreach ($commandes as $commande) {
 }
 $contenu .= "</tbody></table>";
 
+
+
 // créer une boucle pour ajouter la somme des montants dans $ca
 
 $ca .= "</p>"
@@ -39,6 +41,7 @@ $ca .= "</p>"
 <h1>Gestion des commandes</h1>
 
 <?= $contenu ?>
+<!-- ajouter un formulaire select et un bouton valider pour l'état de la commande-->
 <?= $ca ?>
 
 
