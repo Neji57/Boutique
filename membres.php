@@ -10,7 +10,7 @@
             // On enregistre la modification
             if(!empty($_POST))
             {
-                $resultat = $pdo->prepare("REPLACE INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse) VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse)");
+                $resultat = $pdo->prepare("REPLACE INTO membre (id_membre, pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse) VALUES (:id_membre, :pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse)");
                 $resultat->bindValue(':id_membre', $_POST['id_membre'], PDO::PARAM_INT);
                 // $nom_photo = (isset($_POST['photo'])) ? $_POST['photo'] : '' ;
             }
