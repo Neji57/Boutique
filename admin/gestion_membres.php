@@ -22,7 +22,9 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($membre as $key => $value) 
         {
-                $contenu .= "<td>" . $value . "</td>";
+            
+            $contenu .= "<td>" . $value . "</td>";
+            
         }
         //$contenu .= "<td><a href='" . URL . "admin/set_membre_admin.php?id=" . $membre['id_membre'] . "'>Modifier</a></td>";
         $contenu .= "<td><a href='" . URL . "admin/suppression_membre.php?id=" . $membre['id_membre'] . "'>Supprimer</a></td>";
