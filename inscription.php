@@ -54,7 +54,8 @@ if ($_POST) {
     if (!$verif_email || in_array($dom_email[1], $dom_interdit)) {
       $msg_erreur .= "<div class='alert alert-danger'>Veuillez renseigner un email valide";
     } 
-  } else {
+  } else 
+  {
       $msg_erreur .= "<div class='alert alert-danger'>Veuillez renseigner un email";
     }
   // Fin vérification email

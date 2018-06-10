@@ -1,30 +1,32 @@
 <?php
     require_once('inc/header.php');
     // debug($_POST);
-    // debug($_FILE);
     if($_POST)
     {
         // Vérification des champs
         if(empty($msg_erreur))
         {
-            // On enregistre la modification
             if(!empty($_POST))
             {
-                $resultat = $pdo->prepare("REPLACE INTO membre (id_membre, pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse) VALUES (:id_membre, :pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse)");
-                $resultat->bindValue(':id_membre', $_POST['id_membre'], PDO::PARAM_INT);
-                // $nom_photo = (isset($_POST['photo'])) ? $_POST['photo'] : '' ;
+                $resultat2 = $pdo->prepare("REPLACE INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse) VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse)");
+                $resultat2->bindValue(':id', $_POST['id_membre'], PDO::PARAM_INT);
+
+            //cryptage du mot de passe
+            $mdp_crypte = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+
+            $resultat2->bindValue(':pseudo', $_POST['pseudo'], PDO::PARAM_STR);
+            $resultat2->bindValue(':mdp', $mdp_crypte, PDO::PARAM_STR);
+            $resultat2->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
+            $resultat2->bindValue(':prenom', $_POST['prenom'], PDO::PARAM_STR);
+            $resultat2->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
+            $resultat2->bindValue(':civilite', $_POST['civilite'], PDO::PARAM_STR);
+            $resultat2->bindValue(':ville', $_POST['ville'], PDO::PARAM_STR);
+            $resultat2->bindValue(':code_postal', $_POST['code_postal'], PDO::PARAM_INT);
+            $resultat2->bindValue(':adresse', $_POST['adresse'], PDO::PARAM_STR);
             }
-            $resultat->bindValue(':pseudo', $_POST['pseudo'], PDO::PARAM_STR);
-            $resultat->bindValue(':mdp', $_POST['mdp'], PDO::PARAM_STR);
-            $resultat->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
-            $resultat->bindValue(':prenom', $_POST['prenom'], PDO::PARAM_STR);
-            $resultat->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
-            $resultat->bindValue(':civilite', $_POST['civilite'], PDO::PARAM_STR);
-            $resultat->bindValue(':ville', $_POST['ville'], PDO::PARAM_STR);
-            $resultat->bindValue(':code_postal', $_POST['code_postal'], PDO::PARAM_INT);
-            $resultat->bindValue(':adresse', $_POST['adresse'], PDO::PARAM_STR);
         }
     }
+
     // Vérification si il existe le $_GET['id'] + il est rempli + c'est un chiffre
     if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
     {
@@ -38,7 +40,6 @@
         }
     }
     $pseudo = (isset($modif)) ? $modif['pseudo'] : '';
-    $mdp = (isset($modif)) ? $modif['mdp'] : '';
     $nom = (isset($modif)) ? $modif['nom'] : '';
     $prenom = (isset($modif)) ? $modif['prenom'] : '';
     $email = (isset($modif)) ? $modif['email'] : '';
@@ -47,7 +48,9 @@
     $code_postal = (isset($modif)) ? $modif['code_postal'] : '';
     $adresse = (isset($modif)) ? $modif['adresse'] : '';
 
-    debug($modif);
+    
+
+    //debug($_GET['id']);
 ?>
 
 <h1>Modifier mes infos</h1>
@@ -73,7 +76,7 @@
 
     <div class="row">
         <div class="form-group col-md-4">
-            <input type="text" class="form-control" name="mdp" id="mdp" aria-describedby="helpId" placeholder="Votre mot de passe" value="<?= $mdp ?>">
+            <input type="text" class="form-control" name="mdp" id="mdp" aria-describedby="helpId" placeholder="Votre mot de passe">
         </div>
         <div class="form-group col-md-4">
             <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="Votre adresse mail" value="<?= $email ?>">
