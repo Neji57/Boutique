@@ -2,7 +2,9 @@
 
 require_once('inc/header.php');
 
-$resultat = $pdo->query("SELECT id_membre, pseudo, nom, prenom, email FROM membre");
+if(userAdmin())
+{
+    $resultat = $pdo->query("SELECT id_membre, pseudo, nom, prenom, email FROM membre");
 $membres = $resultat->fetchAll();
 
 $contenu .= "<table class='table'>";
@@ -25,6 +27,11 @@ foreach ($membres as $membre)
     $contenu .= "</tr>";
 }
 $contenu .= "</tbody></table>";
+}
+else
+{
+    header('location:../index.php');
+}
 
 ?>
 
