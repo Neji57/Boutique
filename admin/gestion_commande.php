@@ -24,9 +24,7 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($commande as $key => $value) 
         {
-            
                 $contenu .= "<td>" . $value . "</td>";
-            
         }
         
         $contenu .= "</tr>";

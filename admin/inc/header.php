@@ -64,7 +64,10 @@
               <a class="nav-link" href="<?= URL ?>admin/liste_produit.php">Liste produits</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?= URL ?>admin/gestion_commande.php">Gestion Commande</a>
+              <a class="nav-link" href="<?= URL ?>admin/gestion_commande.php">Gestion commandes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= URL ?>admin/gestion_membres.php">Gestion membres</a>
             </li>
           </ul>
         </nav>
