@@ -2,9 +2,10 @@
 
 require_once('inc/header.php');
 
-//$resultat = $pdo->query("SELECT * FROM commande AS c, membre AS m");
 $resultat = $pdo->query("SELECT id_commande, c.id_membre, montant, date_enregistrement, etat, pseudo, adresse, ville, code_postal FROM commande AS c, membre AS m");
 $commandes = $resultat->fetchAll();
+
+$ca = "<p>Total du chiffre d'affaires pour les commandes en cours: ";
 
 $contenu .= "<table class='table'>";
 $contenu .= "<thead><tr>";
@@ -27,6 +28,10 @@ foreach ($commandes as $commande) {
 }
 $contenu .= "</tbody></table>";
 
+// créer une boucle pour ajouter la somme des montants dans $ca
+
+$ca .= "</p>"
+
 // debug($champs);
 
 ?>
@@ -34,6 +39,7 @@ $contenu .= "</tbody></table>";
 <h1>Gestion des commandes</h1>
 
 <?= $contenu ?>
+<?= $ca ?>
 
 
 
