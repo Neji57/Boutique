@@ -37,7 +37,7 @@ else
 
 ?>
 
-<h1>Liste des produits</h1>
+<h1>Gestion des membres</h1>
 
 <?= $contenu ?>
 
