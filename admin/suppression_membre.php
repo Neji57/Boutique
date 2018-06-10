@@ -14,6 +14,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
 
         $req2 = "DELETE FROM membre WHERE id_membre = $membre[id_membre]";
         $resultat2 = $pdo->exec($req2);
+        // ATTENTION Ne fonctionne que si le membre n'a pas passé de commande !!!
 
         if($resultat !== FALSE)
         {

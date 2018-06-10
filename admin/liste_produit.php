@@ -29,7 +29,7 @@ foreach ($produits as $produit) {
 }
 $contenu .= "</tbody></table>";
 
-// debug($champs);
+debug($produit['id_produit']);
 
 ?>
 
