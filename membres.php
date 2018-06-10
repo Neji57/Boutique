@@ -46,6 +46,8 @@
     $ville = (isset($modif)) ? $modif['ville'] : '';
     $code_postal = (isset($modif)) ? $modif['code_postal'] : '';
     $adresse = (isset($modif)) ? $modif['adresse'] : '';
+
+    debug($modif);
 ?>
 
 <h1>Modifier mes infos</h1>
@@ -56,7 +58,6 @@
             <input type="hidden" class="form-control" name="id_membre" id="id_membre" aria-describedby="helpId" placeholder="Identifiant membre" value="<?= $id_membre ?>">
         </div>
     </div>
-    
 
     <div class="row">
         <div class="form-group col-md-4">
@@ -101,12 +102,12 @@
             <input type="text" class="form-control" name="code_postal" id="code_postal" aria-describedby="helpId" placeholder="code postal" value="<?= $code_postal ?>">
         </div>
     </div>
+
     <div class="row">
         <div class="col-12">
             <button type="submit" class="btn btn-block btn-success">Modifier</button>
         </div>
     </div>
 </form>
-
 
 <?php require_once('inc/footer.php'); ?>

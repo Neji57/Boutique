@@ -1,6 +1,6 @@
 <?php require_once('inc/header.php'); 
 
-$chemin_modif = URL . "membres.php?id='" . $_SESSION['id_membre'] . "'";
+$chemin_modif = URL . "membres.php?id='" . $_SESSION['membre']['id_membre'] . "'";
 
 // if (!isset($_SESSION['membre'])) {
 //     header('location:connexion.php');
@@ -13,7 +13,7 @@ if (!userConnect())
 }
 $page = 'Bienvenue ' . $_SESSION['membre']['pseudo'] . ' !';
 
-debug($_SESSION);
+debug($_SESSION['membre']['id_membre']);
 
 ?>
 
