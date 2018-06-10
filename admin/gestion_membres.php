@@ -24,7 +24,7 @@ foreach ($membres as $membre)
     {
             $contenu .= "<td>" . $value . "</td>";
     }
-    $contenu .= "<td><a href='" . URL . "admin/gestion_membre.php?id=" . $membre['id_membre'] . "'>Modifier</a></td>";
+    //$contenu .= "<td><a href='" . URL . "admin/gestion_membre.php?id=" . $membre['id_membre'] . "'>Modifier</a></td>";
     $contenu .= "<td><a href='" . URL . "admin/suppression_membre.php?id=" . $membre['id_membre'] . "'>Supprimer</a></td>";
     $contenu .= "</tr>";
 }
