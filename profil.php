@@ -1,5 +1,6 @@
 <?php require_once('inc/header.php'); 
 
+$chemin_modif = URL . "membres.php?id='" . $_SESSION['id_membre'] . "'";
 
 // if (!isset($_SESSION['membre'])) {
 //     header('location:connexion.php');
@@ -12,6 +13,8 @@ if (!userConnect())
 }
 $page = 'Bienvenue ' . $_SESSION['membre']['pseudo'] . ' !';
 
+debug($_SESSION);
+
 ?>
 
 <div class="starter-template">
@@ -22,6 +25,9 @@ $page = 'Bienvenue ' . $_SESSION['membre']['pseudo'] . ' !';
       <li class="list-group-item">Votre prenom: <?= $_SESSION['membre']['prenom'] ?></li>
       <li class="list-group-item">Votre email: <?= $_SESSION['membre']['email'] ?></li>
   </ul>
+  <a class="btn btn-primary my-4" href=" <?= $chemin_modif ?>">Modifier mes infos</a>
 </div>
+
+
 
 <?php require_once('inc/footer.php'); ?>
