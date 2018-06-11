@@ -4,7 +4,7 @@ require_once('inc/header.php');
 
 if(userAdmin())
 {
-    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m");
+    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m WHERE c.id_membre = m.id_membre");
     $commandes = $resultat->fetchAll();
 
     $ca = "<p>Total du chiffre d'affaires pour les commandes en cours: ";
@@ -24,12 +24,15 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($commande as $key => $value) 
         {
-            $contenu .= "<td>" . $value . "</td>";
+            if($key != 'etat')
+            {
+                $contenu .= "<td>" . $value . "</td>";
+            }
             //POUR AJOUTER UNE SELECTION DANS LE TABLEAU
-            //if ($key == 'etat') 
-            //{
-            //$contenu .= "<td><select name='etat' class='form-control'><option value='" . $value . "'>" . $value . "</option></select></td>";
-            //} 
+            if ($key == 'etat') 
+            {
+            $contenu .= "<td><select name='etat' class='form-control'><option value='" . $value . "'>" . $value . "</option></select></td>";
+            } 
         }
         
         $contenu .= "</tr>";
