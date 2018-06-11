@@ -3,7 +3,52 @@
     // debug($_POST);
     if($_POST)
     {
-        debug($_POST);
+        //VERIFICATION PSEUDO
+        if (!empty($_POST['pseudo'])) 
+        {
+            $verif_pseudo = preg_match('#^[a-zA-Z0-9-._]{3,20}$#', $_POST['pseudo']); // la fonction preg_match() me permet de définir les caracteres autorisés dans une STR/VAR. Elle attend 2 arguments: REGEX ou Expression régulière + ma STR/VAR à checker. Elle renvoie un TRUE ou un FALSE
+
+            if (!$verif_pseudo) 
+            {
+                $msg_erreur .= "<div class='alert alert-danger'>Votre pseudo doit comporter entre 3 et 20 caractères (Majuscules, minuscules, chiffres et caractères '.', '_', '-' acceptés)";
+            }
+        }
+        // Fin vérification pseudo
+
+        //VERIFICATION MDP
+        if (!empty($_POST['mdp'])) 
+        {
+            $verif_mdp = preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*\'\?$@%_])([-+!*\?$\'@%_\w]{6,15})$#', $_POST['mdp']); // le mdp doit contenir: 6 caractère min et 15 max + 1 MAJ + 1 MIN + 1 chiffre + 1 caractère spécial
+
+            if (!$verif_mdp) 
+            {
+            $msg_erreur .= "<div class='alert alert-danger'>Votre mot de passe doit comporter entre 6 et 15 caractères dont des majuscules, minuscules, chiffres et caractères spéciaux)";
+            }
+        }
+        // Fin vérification mot de passe
+
+        //VERIFICATION EMAIL
+        if (!empty($_POST['email'])) 
+        {
+            $verif_email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL); 
+            // la fonction filter_var() nous permet de vérifier une STR (email, URL -> FILTER_VALIDATE_URL Elle prend 2 arguments: la STR + la methode. Elle retourne un BOOL )
+
+            $dom_interdit = [
+            'mailinator.com',
+            'yopmail.com',
+            'mail.com'
+            ];
+
+            $dom_email = explode('@', $_POST['email']);
+            // La fonction explode() nous permet d'exploser une STR/VAR à partir de l'élément choisi en 1er argument
+
+            if (!$verif_email || in_array($dom_email[1], $dom_interdit)) 
+            {
+                $msg_erreur .= "<div class='alert alert-danger'>Veuillez renseigner un email valide";
+            }
+        }
+        //Fin vérification email
+
         // Vérification des champs
         if(empty($msg_erreur))
         {
@@ -31,10 +76,7 @@
                 {
                     $resultat2->bindValue(':mdp', $mdp_crypte, PDO::PARAM_STR);
                 }
-                
-                // debug($resultat2);
                 $resultat2->execute();
-                // debug($r);
             }
 
             

@@ -60,9 +60,9 @@ if ($_POST) {
     }
   // Fin vérification email
 
-  // if (!isset($_POST['civilite']) || $_POST['civilite'] !== "m" || $_POST['civilite'] !== "f" || $_POST['civilite'] !== "o") {
-  //   $msg_erreur .= "<div class='alert alert-danger'>Veuillez rentrer une civilité valide</div>";
-  // }
+    if (!isset($_POST['civilite']) || $_POST['civilite'] !== "m" || $_POST['civilite'] !== "f" || $_POST['civilite'] !== "o") {
+    $msg_erreur .= "<div class='alert alert-danger'>Veuillez rentrer une civilité valide</div>";
+    }
 
   // AUTRES VÉRIFS POSSIBLES
   if (empty($msg_erreur)) {
@@ -71,11 +71,11 @@ if ($_POST) {
     $resultat->bindValue(':pseudo', $_POST['pseudo'], PDO::PARAM_STR);
     $resultat->execute();
 
-            // Si on a une ligne de résultat dans la BDD
     if ($resultat->rowcount() > 0) {
+      // Si on a une ligne de résultat dans la BDD
       $msg_erreur .= "<div class='alert alert-danger'>Le pseudo " . $_POST['pseudo'] . " n'est malheureusement pas disponible. Veuillez en choisir un autre.</div>";
     }
-    else // Pas de ligne en retour, je peux inscrire l'utilisateur
+    else
     {
       $resultat = $pdo->prepare("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse, 0)");
 
@@ -109,7 +109,7 @@ if ($_POST) {
 }
 
 
-//traitement pour réaffivher les valeurs entrées en cas de rechargement de la page et erreur d'inscription
+//traitement pour réafficher les valeurs entrées en cas de rechargement de la page et erreur d'inscription
 
 $pseudo = (isset($_POST['pseudo'])) ? $_POST['pseudo'] : '';
 // ici nous mettons une condition: si on recoit du POST, alors ma variable contiendra la valeur envoyée sinon, la valeur sera vide
