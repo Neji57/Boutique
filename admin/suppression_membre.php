@@ -16,7 +16,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
         $resultat2 = $pdo->exec($req2);
         // ATTENTION Ne fonctionne que si le membre n'a pas passé de commande !!!
 
-        if($resultat !== FALSE)
+        if($resultat !== FALSE) 
         {
             header('location:' . URL . 'admin/gestion_membres.php' );
         }
