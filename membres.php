@@ -29,7 +29,7 @@
                 $resultat2->bindValue(':adresse', $_POST['adresse'], PDO::PARAM_STR);
                 
                 // debug($resultat2);
-                $r = $resultat2->execute();
+                $resultat2->execute();
                 // debug($r);
             }
 
