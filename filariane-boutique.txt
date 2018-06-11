@@ -1,0 +1,178 @@
+_______________________________________
+
+ÉTAPES DE CRÉATION DE NOTRE ECOMMERCE :
+_______________________________________
+
+
+_____
+#1 - Modélisation de la BDD (papier, workbench,...)
+
+    > boutique - utf8_general_ci
+
+    SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+    SET AUTOCOMMIT = 0;
+    START TRANSACTION;
+    SET time_zone = "+00:00";
+    DROP TABLE IF EXISTS `commande`;
+    CREATE TABLE IF NOT EXISTS `commande` (
+    `id_commande` int(3) NOT NULL AUTO_INCREMENT,
+    `id_membre` int(3) NOT NULL,
+    `montant` float NOT NULL,
+    `date_enregistrement` datetime NOT NULL,
+    `etat` enum('Préparation de la commande','En cours de livraison','Livré') NOT NULL,
+    PRIMARY KEY (`id_commande`),
+    KEY `id_membre` (`id_membre`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    DROP TABLE IF EXISTS `detail_commande`;
+    CREATE TABLE IF NOT EXISTS `detail_commande` (
+    `id_detail_commande` int(3) NOT NULL AUTO_INCREMENT,
+    `id_commande` int(3) NOT NULL,
+    `id_produit` int(3) NOT NULL,
+    `quantite` int(3) NOT NULL,
+    `prix` float NOT NULL,
+    PRIMARY KEY (`id_detail_commande`),
+    KEY `id_commande` (`id_commande`,`id_produit`),
+    KEY `id_produit` (`id_produit`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    DROP TABLE IF EXISTS `membre`;
+    CREATE TABLE IF NOT EXISTS `membre` (
+    `id_membre` int(3) NOT NULL AUTO_INCREMENT,
+    `pseudo` varchar(20) NOT NULL,
+    `mdp` varchar(60) NOT NULL,
+    `nom` varchar(20) NOT NULL,
+    `prenom` varchar(20) NOT NULL,
+    `email` varchar(50) NOT NULL,
+    `civilite` enum('M','F','O') NOT NULL,
+    `ville` varchar(20) NOT NULL,
+    `code_postal` int(5) UNSIGNED ZEROFILL NOT NULL,
+    `adresse` varchar(50) NOT NULL,
+    `statut` int(1) NOT NULL,
+    PRIMARY KEY (`id_membre`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    DROP TABLE IF EXISTS `produit`;
+    CREATE TABLE IF NOT EXISTS `produit` (
+    `id_produit` int(3) NOT NULL AUTO_INCREMENT,
+    `reference` varchar(20) NOT NULL,
+    `categorie` varchar(20) NOT NULL,
+    `titre` varchar(100) NOT NULL,
+    `description` text NOT NULL,
+    `couleur` varchar(20) NOT NULL,
+    `taille` varchar(5) NOT NULL,
+    `public` enum('Homme','Femme','Mixte') NOT NULL,
+    `photo` varchar(250) NOT NULL,
+    `prix` float NOT NULL,
+    `stock` int(3) NOT NULL,
+    PRIMARY KEY (`id_produit`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ALTER TABLE `detail_commande`
+    ADD CONSTRAINT `id_commande` FOREIGN KEY (`id_commande`) REFERENCES `commande` (`id_commande`) ON DELETE NO ACTION ON UPDATE CASCADE,
+    ADD CONSTRAINT `id_produit` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`) ON DELETE NO ACTION ON UPDATE CASCADE;
+    ALTER TABLE `membre`
+    ADD CONSTRAINT `id_membre` FOREIGN KEY (`id_membre`) REFERENCES `commande` (`id_membre`) ON DELETE NO ACTION ON UPDATE CASCADE;
+    COMMIT;
+
+
+_____
+#2 - Création de la BDD (PHPMYADMIN ou console)
+
+
+
+_____
+#3 - Structure de notre dossier (2 sites : FONT + BACK, fichiers d'inclusion)
+
+    > BOUTIQUE
+
+        BOUTIQUE/
+        ├── ADMIN/
+        │   ├── index.php
+        │   ├── gestion_produit.php
+        │   ├── INC/
+        │   │   ├── header.php
+        │   │   └── footer.php
+        │   ├── ASSETS/
+        │   │   └── CSS/
+        │   │   │   └── style.css
+        ├── ASSETS/
+        |   ├── CSS/
+        │   │   └── style.css
+        │   ├── JS/
+        │   └── UPLOADS/
+        │   │   └── IMG/
+        ├── INC/
+        |   ├── header.php
+        │   ├── footer.php
+        │   ├── init.php
+        │   └── fonction.php
+        ├── inscription.php
+        ├── connexion.php
+        ├── deconnexion.php
+        ├── profil.php
+        ├── boutique.php
+        └── index.php
+
+
+_____
+#4 - Connexion à la BDD (init.php) + ouverture de session + déclaration de variables, fonctions, ...
+
+
+
+_____
+#5 - Développer l'index.php (front basique) + découpage HEADER/FOOTER
+
+
+
+_____
+#6 - Développer la page inscription.php
+
+    > Formulaire
+    > Traitement 
+    > Sécurité 
+
+
+_____
+#7 - Développer la page connexion.php
+
+    > Formulaire
+    > Traitement 
+    > Sécurité
+
+
+_____
+#8 - Développer la page profil.php (affichage des données)
+
+
+_____
+#9 - Traitement de la déconnexion
+
+
+_____
+#10 - Rendre le menu de navigation dynamique en fonction de l'utilisateur
+
+
+_____
+#11 - Côté BACKOFFICE : Développement côté admin
+
+    > Front + menu dynamique
+    > Afficher et traîter un formulaire produit -> INSERT en BDD
+    > Afficher ma liste de produits liste_produit.php en BDD + option de motification & suppression du produit
+    
+_____
+#12 - Afficher mes produits dans boutique.php
+
+    > Affichage des produits & catégories
+    > Rendre le contenu cliquable pour détail du produit
+
+_____
+#13 - Développer la page fiche_produit.php
+
+    > Traitement $_GET avec récupération de l'ID
+    > Affichage des détails du produit)
+
+_____
+#14 - Traitement du panier
+
+    > Création d'une fonction pour ajouter un produit au panier
+    > Traitement pour afficher les produits sélectionnés dans un tableau de résumé ($_SESSION)
+    > Création d'une fonction pour calculer le montant total
+    > Option pour supprimer le panier + Traitement
+    > Traitement pour terminer la commande

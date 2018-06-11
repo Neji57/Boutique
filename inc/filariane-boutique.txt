@@ -1,0 +1,47 @@
+ETAPES DE CREATION DE NOTRE ECOMMERCE
+
+#1 Modelisation de la BDD (papier, workbench...)
+
+#2 Création de la BDD (PHPMYAdmin ou console)
+
+#3 Structure de notre dossier (2 sites: FRONT + BACK, fichiers d'instruction)
+
+    > BOUTIQUE
+
+        > ADMIN
+            > ASSETS
+                >CSS
+            
+            > INC
+                >HEADER.PHP
+                >FOOTER.PHP
+
+            INDEX.PHP
+
+        > ASSETS
+            >CSS
+            >JS
+            >IMG
+
+        > INC
+            >HEADER.PHP
+            >FOOTER.PHP
+            INIT.PHP
+            FONCTION.PHP
+
+        INDEX.PHP
+        INSCRIPTION.PHP
+
+#4 Connexion à la BDD (INIT.PHP) + ouverture de session + déclaration de variables, fonctions...
+
+#5 Développer l'INDEX.PHP (front basique) + découpage Header/Footer.php
+
+#6 Développer la page INSCRIPTION.PHP (formulaire, traitement & sécurité)
+
+#7 Développer la page CONNEXION.PHP (formulaire, traitement & sécurité)
+
+#8 Développer la page PROFIL.PHP (affichage des données)
+
+#9 Traitement de la déconnexion
+
+#10 Coté BACKOFFICE: développement côté admin
