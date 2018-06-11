@@ -16,22 +16,27 @@
             $chemin_photo = RACINE_SITE . 'assets/uploads/img/' . $nom_photo;
 
             // 3) vérification de l'intégrité du fichier uploadé
-            if($_FILES['photo']['size'] > 2000000) {
+            if($_FILES['photo']['size'] > 2000000) 
+            {
                 $msg .= '<div class="erreur">Veuillez choisir un fichier de 2Mo maximum</div>';
             }
 
             $ext = array('image/jpeg', 'image/png', 'image/gif');
-            if(!in_array($_FILES['photo']['type'], $ext)){
+            if(!in_array($_FILES['photo']['type'], $ext))
+            {
                 $msg .= '<div class="erreur">Veuillez sélectionner une image JPG, JPEG, PNG ou GIF</div>';
             }
 
             // 4) Si tout est ok et pdt enregistré en BDD, copier image dans notre dossier photo => APRES VERIFICATION (sauvegarder espace serveur)
 
         } 
-        elseif(isset($_POST['photo_actuelle'])) { // si je suis en train de modifier un produit alors photo_actuelle existe et je prend sa valeur pour la mettre dans nom_photo afin qu'elle soit enregistrée dans la BDD
+        elseif(isset($_POST['photo_actuelle'])) 
+        { 
+            // si je suis en train de modifier un produit alors photo_actuelle existe et je prend sa valeur pour la mettre dans nom_photo afin qu'elle soit enregistrée dans la BDD
             $nom_photo = $_POST['photo_actuelle'];
         }
-        else {
+        else 
+        {
             // $msg .= '<div class="erreur">Veuillez sélectionner une photo</div>';
             $nom_photo = 'default.jpg';
         }
@@ -39,15 +44,18 @@
         // Vérifications sur toutes les autres champs : nbr de caractère, preg_match, valeur numérique (prix et stock), non vide ...
 
         // Si tout est ok dans notre formulaire on peut enregistrer le produit en BDD et la photo dans son emplacement définitif
-        if(empty($msg)) {
+        if(empty($msg)) 
+        {
 
-            if(!empty($_POST['id_produit'])) {
+            if(!empty($_POST['id_produit'])) 
+            {
                 // on enregistre la modification
                 $resultat = $pdo -> prepare("REPLACE INTO produit (id_produit, reference, categorie, titre, description, couleur, taille, public, photo, prix, stock) VALUES (:id_produit, :reference, :categorie, :titre, :description, :couleur, :taille, :public, :photo, :prix, :stock)");
 
                 $resultat -> bindValue(':id_produit', $_POST['id_produit'], PDO::PARAM_INT);
             }
-            else {
+            else 
+            {
                 //enregistre en BDD
                 $resultat = $pdo -> prepare("INSERT INTO produit (reference, categorie, titre, description, couleur, taille, public, photo, prix, stock) VALUES (:reference, :categorie, :titre, :description, :couleur, :taille, :public, :photo, :prix, :stock)");
             }
@@ -65,29 +73,32 @@
             $resultat -> bindValue(':prix', $_POST['prix'], PDO::PARAM_STR); // FLOAT et DOUBLE uniquement via STR
             $resultat -> bindValue(':stock', $_POST['stock'], PDO::PARAM_INT);
 
-            if($resultat -> execute()) { //si requête = ok
+            if($resultat -> execute()) 
+            { 
+                //si requête = ok
                 // 1) on enregistre le fichier photo dans son emplacement définitif
-                if(!empty($_FILES['photo']['name'])) {
+                if(!empty($_FILES['photo']['name'])) 
+                {
                     copy($_FILES['photo']['tmp_name'], $chemin_photo);
                     //copy permet de copier-coller un fichier. Ici on copie fichier photo de son emplacement temporaire vers emplacement définitif
                 }
-
                 // on redirige vers la page liste_produit.php
-                header('location:liste_produit.php');
+                //header('location:liste_produit.php');
             }
         }
     }
     
     //traitement pour récupérer les infos du produits à modifier
-    if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])) {
+    if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])) 
+    {
         $req = "SELECT * FROM produit WHERE id_produit = :id";
         $resultat = $pdo -> prepare($req);
         $resultat -> bindValue(":id", $_GET['id'], PDO::PARAM_INT);
         $resultat -> execute();
             
-        if($resultat -> rowCount() > 0) {
+        if($resultat -> rowCount() > 0)
+        {
             $produit_actuel = $resultat -> fetch();
-
             // debug($produit_actuel);
         }
     }
@@ -105,8 +116,7 @@
     $id_produit = (isset($produit_actuel)) ? $produit_actuel['id_produit'] : '';
 
     $action = (isset($produit_actuel)) ? 'Modifier' : 'Ajouter';
-
-    debug($photo);
+debug($_FILES['photo']);
 ?>
 
 <h1><?= $action?> un produit</h1>
