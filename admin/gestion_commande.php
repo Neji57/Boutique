@@ -4,7 +4,25 @@ require_once('inc/header.php');
 
 if(userAdmin())
 {
-    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, p.reference, d.quantite, p.titre, p.couleur, p.taille, p.photo, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m, details_commande AS d, produit AS p WHERE c.id_membre = m.id_membre AND c.id_commande = d.id_commande AND p.id_produit = d.id_produit");
+    $tri = 'c.date_enregistrement';
+
+    if($_POST)
+    {
+        if($_POST['tri'] == 'date')
+        {
+            $tri = 'c.date_enregistrement';
+        }
+        if($_POST['tri'] == 'etat')
+        {
+            $tri = 'c.etat';
+        }
+        if($_POST['tri'] == 'montant')
+        {
+            $tri = 'c.montant';
+        }
+    }
+
+    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, p.reference, d.quantite, p.titre, p.couleur, p.taille, p.photo, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m, details_commande AS d, produit AS p WHERE c.id_membre = m.id_membre AND c.id_commande = d.id_commande AND p.id_produit = d.id_produit ORDER BY $tri");
     $commandes = $resultat->fetchAll();
 
     $ca = 0;
@@ -50,20 +68,30 @@ if(userAdmin())
         $contenu .= "</tr>";
     }
     $contenu .= "</tbody></table>";
-
 }
 else
 {
     header('location:../index.php');
 }
 
-
 ?>
 
-
-
-
 <h1>Gestion des commandes</h1>
+
+<form method="post">
+    <div class="row my-3">
+        <div class="col-md-8">
+            <select name="tri" class="form-control" id="tri">
+                <option value="date">Date</option>
+                <option value="etat">Etat</option>
+                <option value="montant">Montant</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-info">Trier</button>
+        </div>
+    </div>
+</form>
 
 <?= $contenu ?>
 

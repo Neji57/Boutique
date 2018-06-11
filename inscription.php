@@ -153,7 +153,6 @@ $adresse = (isset($_POST['adresse'])) ? $_POST['adresse'] : '';
   </div>
   <div class="form-group">
   <select name="civilite" class="form-control" id="exampleFormControlSelect1">
-        
       <option value="f">Femme</option>
       <option value="m">Homme</option>
       <option value="o">Autre</option>
