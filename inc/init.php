@@ -13,7 +13,7 @@
     ];
     $pdo = new PDO($dsn, $login, $pwd, $attributes);
     // Définition de CONSTANTE
-    define('URL', 'http://localhost/6-boutique/boutique/');
+    define('URL', 'http://localhost/php/6-boutique/');
 
     define('RACINE_SITE',$_SERVER['DOCUMENT_ROOT'] . '/php/6-boutique/');
     // On définit la racine de notre site grâce à $_SERVER
