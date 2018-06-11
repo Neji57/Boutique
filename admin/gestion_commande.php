@@ -4,7 +4,7 @@ require_once('inc/header.php');
 
 if(userAdmin())
 {
-    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m WHERE c.id_membre = m.id_membre");
+    $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, p.reference, d.quantite, p.titre, p.couleur, p.taille, p.photo, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m, details_commande AS d, produit AS p WHERE c.id_membre = m.id_membre AND c.id_commande = d.id_commande AND p.id_produit = d.id_produit");
     $commandes = $resultat->fetchAll();
 
     $ca = 0;
@@ -24,10 +24,14 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($commande as $key => $value) 
         {
+            if ($key == 'photo') 
+            {
+            $contenu .= '<td><img height="100" src="' . URL . 'assets/uploads/img/' . $commande['photo'] . '"/></td>';
+            }
             //debug($commande['montant']);
             if($key == 'montant')
             {
-                $ca = $ca + $value;
+                $ca = $ca + $value*$commande['quantite'];
             }
             //si on traite la valeur de l'état, on insère un select
             if ($key == 'etat') 
