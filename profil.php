@@ -17,7 +17,7 @@ debug($_SESSION['membre']['id_membre']);
 
 ?>
 
-<div class="starter-template">
+<div class="starter-template"> 
   <h1><?= $page ?></h1>
   <p class="lead">Voici vos informations</p>
   <ul class="list-group">
