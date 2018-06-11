@@ -23,8 +23,8 @@ foreach ($produits as $produit) {
             $contenu .= "<td>" . $value . "</td>";
         }
     }
-    $contenu .= "<td><a href='" . URL . "admin/gestion_produit.php?id=" . $produit['id_produit'] . "'>Modifier</a></td>";
-    $contenu .= "<td><a href='" . URL . "admin/suppression_produit.php?id=" . $produit['id_produit'] . "'>Supprimer</a></td>";
+    $contenu .= "<td><a class='btn btn-outline-warning btn-sm' href='" . URL . "admin/gestion_produit.php?id=" . $produit['id_produit'] . "'>Modifier</a></td>";
+    $contenu .= "<td><a class='btn btn-outline-danger btn-sm' href='" . URL . "admin/suppression_produit.php?id=" . $produit['id_produit'] . "'>Supprimer</a></td>";
     $contenu .= "</tr>";
 }
 $contenu .= "</tbody></table>";
