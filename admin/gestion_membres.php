@@ -30,16 +30,16 @@ if(userAdmin())
         if($membre['statut'] == 0)
         {
             //on ajoute un lien pour modifier le statut
-            $contenu .= "<td><a href='" . URL . "admin/set_membre_admin.php?id=" . $membre['id_membre'] . "'>Donner statut Admin</a></td>";
+            $contenu .= "<td><a class='btn btn-outline-success btn-sm' href='" . URL . "admin/set_membre_admin.php?id=" . $membre['id_membre'] . "'>Donner statut Admin</a></td>";
         }
         //Si le membre est admin
         if($membre['statut'] == 1)
         {
             //on ajoute un lien pour modifier le statut
-            $contenu .= "<td><a href='" . URL . "admin/unset_membre_admin.php?id=" . $membre['id_membre'] . "'>Retirer statut Admin</a></td>";
+            $contenu .= "<td><a class='btn btn-outline-danger btn-sm' href='" . URL . "admin/unset_membre_admin.php?id=" . $membre['id_membre'] . "'>Retirer statut Admin</a></td>";
         }
         
-        $contenu .= "<td><a href='" . URL . "admin/suppression_membre.php?id=" . $membre['id_membre'] . "'>Supprimer</a></td>";
+        $contenu .= "<td><a class='btn btn-outline-warning btn-sm' href='" . URL . "admin/suppression_membre.php?id=" . $membre['id_membre'] . "'>Supprimer</a></td>";
         $contenu .= "</tr>";
     }
     $contenu .= "</tbody></table>";
