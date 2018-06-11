@@ -7,7 +7,7 @@ if(userAdmin())
     $resultat = $pdo->query("SELECT c.id_commande, c.id_membre, c.montant, c.date_enregistrement, c.etat, m.pseudo, m.adresse, m.ville, m.code_postal FROM commande AS c, membre AS m WHERE c.id_membre = m.id_membre");
     $commandes = $resultat->fetchAll();
 
-    $ca = "<p>Total du chiffre d'affaires pour les commandes en cours: ";
+    $ca = 0;
 
     $contenu .= "<table class='table'>";
     $contenu .= "<thead><tr>";
@@ -24,10 +24,19 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($commande as $key => $value) 
         {
+            //debug($commande['montant']);
+            if($key == 'montant')
+            {
+                $ca = $ca + $value;
+            }
             //si on traite la valeur de l'état, on insère un select
             if ($key == 'etat') 
             {
-            $contenu .= "<td><select name='etat' class='form-control'><option value='" . $value . "'>" . $value . "</option></select></td>";
+                $contenu .= "<td>";
+
+                $contenu .= "<select name='etat' class='form-control' id='etat'><option value='preparation de la commande'>Préparation de la commande</option><option value='en cours de livraison'>En cours de livraison</option><option value='livre'>Livré</option></select>";
+                
+                $contenu .= "</td>";
             } 
             else
             {
@@ -38,17 +47,12 @@ if(userAdmin())
     }
     $contenu .= "</tbody></table>";
 
-
-
-    // créer une boucle pour ajouter la somme des montants dans $ca
-
-    $ca .= "</p>";
-
 }
 else
 {
     header('location:../index.php');
 }
+
 
 ?>
 
@@ -59,7 +63,7 @@ else
 
 <?= $contenu ?>
 
-<?= $ca ?>
+<p>Total du chiffre d'affaires pour les commandes en cours: <?= $ca ?> €.</p>
 
 
 <?php require_once('inc/footer.php'); ?>
