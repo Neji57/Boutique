@@ -6,7 +6,6 @@ $res = $resultat->fetchAll();
 $chemin_modif = URL . "membres.php?id=" . $_SESSION['membre']['id_membre'];
 $delete = URL . "sp_membre.php?id=" .  $_SESSION['membre']['id_membre'];
 $avatar ='assets/uploads/img/' . $_SESSION['membre']['avatar'];
-$_SESSION['membre']['avatar'] = $res['membre']['avatar'];
 
 // if (!isset($_SESSION['membre'])) {
 //     header('location:connexion.php');
@@ -34,6 +33,15 @@ debug($res);
   </ul>
   <a class="btn btn-primary my-4" href=" <?= $chemin_modif ?>">Modifier mes infos</a>
   <a class="btn btn-primary my-4" href=" <?= $delete ?>">Se desinsrire</a>
+
+  <div class="row">
+    <div class="col-md-6">
+    <h3>Panier</h3>
+    </div>
+    <div class="col-md-6">
+    <h3>Historique</h3>
+    </div>
+  </div>
 </div>
 
 
