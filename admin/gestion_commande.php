@@ -24,17 +24,16 @@ if(userAdmin())
         $contenu .= "<tr>";
         foreach ($commande as $key => $value) 
         {
-            if($key != 'etat')
-            {
-                $contenu .= "<td>" . $value . "</td>";
-            }
-            //POUR AJOUTER UNE SELECTION DANS LE TABLEAU
+            //si on traite la valeur de l'état, on insère un select
             if ($key == 'etat') 
             {
             $contenu .= "<td><select name='etat' class='form-control'><option value='" . $value . "'>" . $value . "</option></select></td>";
             } 
+            else
+            {
+                $contenu .= "<td>" . $value . "</td>";
+            }
         }
-        
         $contenu .= "</tr>";
     }
     $contenu .= "</tbody></table>";
@@ -44,8 +43,6 @@ if(userAdmin())
     // créer une boucle pour ajouter la somme des montants dans $ca
 
     $ca .= "</p>";
-
-    debug($commande['etat']);
 
 }
 else
@@ -61,7 +58,7 @@ else
 <h1>Gestion des commandes</h1>
 
 <?= $contenu ?>
-<!-- ajouter un formulaire select et un bouton valider pour l'état de la commande-->
+
 <?= $ca ?>
 
 
