@@ -12,7 +12,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
     {
         $membre = $resultat->fetch();
 
-        $req2 = "DELETE FROM membre WHERE id_membre = $membre[id_membre]";
+        $req2 = "UPDATE membre SET statut = 1 WHERE id_membre = $membre[id_membre]";
         $resultat2 = $pdo->exec($req2);
 
         if($resultat !== FALSE) 
