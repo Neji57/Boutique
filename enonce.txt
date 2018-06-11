@@ -10,17 +10,16 @@ commandes passées sur le site ainsi que le détail des commandes.
 L’affichage de toutes les informations aideront le commerçant :
 >Le numéro de commande (id_commande) ainsi que la date et le montant afin que le commerçant puisse faire le rapprochement avec les chèques
 qu’il reçoit.
->Les informations sur les articles commandés (id_article) ainsi que le titre, la photo, la quantité demandée, etc. afin qu’il puisse honorer la commande du client.
+-- >Les informations sur les articles commandés (id_article) ainsi que le titre, la photo, la quantité demandée, etc. afin qu’il puisse honorer la commande du client.
 >Le numéro du membre (id_membre) ainsi que son pseudo, adresse, ville et cp afin que le commerçant puisse envoyer le colis.
->L’état de la commande doit s’afficher et doit pouvoir être modifiable par l’administrateur (s’il souhaite changer une commande jusqu’à présent « en cours de
+-- >L’état de la commande doit s’afficher et doit pouvoir être modifiable par l’administrateur (s’il souhaite changer une commande jusqu’à présent « en cours de
 traitement » par « en cours d’envoi » par exemple). 
 
-L’idéal serait que le membre reçoive un email de notification pour l’informer de l’évolution de sa commande.
+-- L’idéal serait que le membre reçoive un email de notification pour l’informer de l’évolution de sa commande.
 
 L’affichage du chiffre d’affaires doit également apparaitre sur cette page.
 
-De l’accessibilité et de la navigation seraient un plus pour le commerçant, en effet il serait bon de lui offrir la possibilité de trier les commandes par date,
-état, montant, etc.
+-- De l’accessibilité et de la navigation seraient un plus pour le commerçant, en effet il serait bon de lui offrir la possibilité de trier les commandes par date, état, montant, etc.
 Seul l’administrateur doit avoir accès à cette page.
 
 #Exercice 2 - BackOffice / Gestion des membres
@@ -32,7 +31,7 @@ Donnez-lui la possibilité d’ajouter d’autres comptes « administrateur ».
 #Exercice 3 - FrontOffice / Modification du compte membre
 Ajoutez un lien « mettre à jour mes informations » dans l’espace « profil.php » afin que les personnes inscrites au site aient la possibilité de modifier leurs informations relatives à leurs comptes tels que leur adresse, mot de passe, ville, cp, adresse, etc.
 Cela implique la création d’une nouvelle page « membres.php ».
-SECURISER LE CHAMP MDP, PSEUDO -> nombre de caracteres + maj, min, caracteres spéciaux
+-- SECURISER LE CHAMP MDP, PSEUDO -> nombre de caracteres + maj, min, caracteres spéciaux
 
 #Exercice 4 - FrontOffice / Suppression du compte membre
 Ajoutez un lien « se désinscrire » dans l’espace « profil.php » afin que les personnes inscrites au site aient la possibilité de supprimer leur compte
