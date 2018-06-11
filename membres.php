@@ -47,10 +47,52 @@
     $ville = (isset($modif)) ? $modif['ville'] : '';
     $code_postal = (isset($modif)) ? $modif['code_postal'] : '';
     $adresse = (isset($modif)) ? $modif['adresse'] : '';
+    $adresse = (isset($modif)) ? $modif['avatar'] : '';
 
-    
+    if(!empty($_FILES['avatar']['name'])) 
+        { //signifie que si une photo est uploadée
 
-    //debug($_GET['id']);
+            // 1) modif du nom de la photo pour éviter potentiel doublon
+            $nom_photo = $_POST['avatar'] . '_' . time() . '_' . rand(1, 999) . '_' . $_FILES['avatar']['name'];
+
+            // 2) On va créer une variable contenant le chemin ABSOLU et définitif de la photo 
+            $chemin_photo = RACINE_SITE . 'assets/uploads/img/' . $nom_photo;
+
+            // 3) vérification de l'intégrité du fichier uploadé
+            if($_FILES['photo']['size'] > 2000000) {
+                $msg .= '<div class="erreur">Veuillez choisir un fichier de 2Mo maximum</div>';
+            }
+
+            $ext = array('image/jpeg', 'image/png', 'image/gif');
+            if(!in_array($_FILES['photo']['type'], $ext)){
+                $msg .= '<div class="erreur">Veuillez sélectionner une image JPG, JPEG, PNG ou GIF</div>';
+            }
+
+            // 4) Si tout est ok et pdt enregistré en BDD, copier image dans notre dossier photo => APRES VERIFICATION (sauvegarder espace serveur)
+
+        } 
+        else {
+            // $msg .= '<div class="erreur">Veuillez sélectionner une photo</div>';
+            $nom_photo = 'default.jpg';
+        }
+
+        // Vérifications sur toutes les autres champs : nbr de caractère, preg_match, valeur numérique (prix et stock), non vide ...
+
+        // Si tout est ok dans notre formulaire on peut enregistrer le produit en BDD et la photo dans son emplacement définitif
+        if(empty($msg)) {
+
+            if(!empty($_POST['id_produit'])) {
+                // on enregistre la modification
+                $resultat = $pdo -> prepare("REPLACE INTO produit (id_produit, reference, categorie, titre, description, couleur, taille, public, photo, prix, stock) VALUES (:id_produit, :reference, :categorie, :titre, :description, :couleur, :taille, :public, :photo, :prix, :stock)");
+
+                $resultat -> bindValue(':id_produit', $_POST['id_produit'], PDO::PARAM_INT);
+            }
+            else {
+                //enregistre en BDD
+                $resultat = $pdo -> prepare("INSERT INTO produit (reference, categorie, titre, description, couleur, taille, public, photo, prix, stock) VALUES (:reference, :categorie, :titre, :description, :couleur, :taille, :public, :photo, :prix, :stock)");
+            }
+        }
+    debug($_FILES);
 ?>
 
 <h1>Modifier mes infos</h1>
@@ -103,6 +145,9 @@
         </div>
         <div class="form-group col-md-4">
             <input type="text" class="form-control" name="code_postal" id="code_postal" aria-describedby="helpId" placeholder="code postal" value="<?= $code_postal ?>">
+        </div>
+        <div class="form-group col-md-4">
+            <input type="file" class="form-control" name="avatar" id="avatar" aria-describedby="helpId" value="<?= $avatar ?>">
         </div>
     </div>
 

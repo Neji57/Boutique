@@ -1,7 +1,11 @@
-<?php require_once('inc/header.php'); 
+<?php require_once('inc/header.php');
+
+$resultat = $pdo->query("SELECT * FROM membre");
+$avatar = $resultat->fetchAll();
 
 $chemin_modif = URL . "membres.php?id=" . $_SESSION['membre']['id_membre'];
 $delete = URL . "sp_membre.php?id=" .  $_SESSION['membre']['id_membre'];
+$avatar = URL . 'assets/uploads/img/' . $avatar['avatar'];
 
 // if (!isset($_SESSION['membre'])) {
 //     header('location:connexion.php');
@@ -22,6 +26,7 @@ debug($_SESSION['membre']['id_membre']);
   <h1><?= $page ?></h1>
   <p class="lead">Voici vos informations</p>
   <ul class="list-group">
+      <!-- <li class="list-group-item"><img src="" alt="avatar"></li> -->
       <li class="list-group-item">Votre nom: <?= $_SESSION['membre']['nom'] ?></li>
       <li class="list-group-item">Votre prenom: <?= $_SESSION['membre']['prenom'] ?></li>
       <li class="list-group-item">Votre email: <?= $_SESSION['membre']['email'] ?></li>
